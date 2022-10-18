@@ -6,19 +6,22 @@ import Servic from '../Servic/Servic';
 const Servises = () => {
     const [servise, setServise] = useState([]);
 
-    useEffect( () =>{
+    useEffect(() => {
         fetch("servises.json")
-        .then(res => res.json())
-        .then(data => setServise(data))
-    },[])
+            .then(res => res.json())
+            .then(data => setServise(data))
+    }, [])
     return (
-        <div className='grid grid-cols-3 gap-2 container mx-auto'>
-            {
-                servise.map(serv => <Servic 
-                key={serv.id}
-                serv = {serv}
-                ></Servic>)
-            }
+        <div>
+            <h1 className='text-center text-3xl mb-5 text-blue-400'>Our Services</h1>
+            <div className='grid lg:grid-cols-3 gap-2 container mx-auto md:grid-cols-2 md:gap-4'>
+                {
+                    servise.map(serv => <Servic
+                        key={serv.id}
+                        serv={serv}
+                    ></Servic>)
+                }
+            </div>
         </div>
     );
 };
