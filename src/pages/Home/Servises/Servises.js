@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import Servic from '../Servic/Servic';
 
 const Servises = () => {
     const [servise, setServise] = useState([]);
@@ -11,8 +12,13 @@ const Servises = () => {
         .then(data => setServise(data))
     },[])
     return (
-        <div>
-            <h2>servises : {servise.length}</h2>
+        <div className='grid grid-cols-3 gap-2 container mx-auto'>
+            {
+                servise.map(serv => <Servic 
+                key={serv.id}
+                serv = {serv}
+                ></Servic>)
+            }
         </div>
     );
 };
