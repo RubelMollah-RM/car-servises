@@ -15,6 +15,7 @@ const Login = () => {
     const navigateRegister = event => {
         navigate('/register');
     }
+
     return (
         <div>
             <h1 className='text-2xl text-center mt-6 mb-3'>Please login</h1>

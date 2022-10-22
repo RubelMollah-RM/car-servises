@@ -7,13 +7,17 @@ const Register = () => {
     const navigateLogin = () =>{
         navigate('/login');
     }
+    
+    const handelRegister = event =>{
+        event.preventDefault();
+    }
     return (
         <div>
             <h1 className='text-green-600 text-center text-2xl'>Register here</h1>
             <div className='flex justify-center align-middle'>
                 <div className='border border-t-green-500 border-r-red-500 border-l-yellow-600 border-b-blue-600 mt-5 rounded-md h-96 w-96 flex justify-center '>
                     <div>
-                        <form className='flex flex-col'>
+                        <form onSubmit={handelRegister} className='flex flex-col'>
                             <label htmlFor="name" className='mt-4'>Name :</label>
                             <input className='w-80 rounded-md border p-2' type="text" name="text" id="" required />
                             <label htmlFor="email" className='mt-3'>Email :</label>
