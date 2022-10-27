@@ -1,14 +1,16 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init'
+import SocialLogin from '../Login/SocialLogin/SocialLogin';
 const Register = () => {
     const [
         createUserWithEmailAndPassword,
         user,
         loading,
         error,
-    ] = useCreateUserWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+    const [updateProfile, updating, updatedError] = useUpdateProfile(auth);
     const navigate = useNavigate();
 
     const navigateLogin = () => {
@@ -29,16 +31,14 @@ const Register = () => {
         </div>
     }
 
-    if (user) {
-        navigate('/home');
-    }
-
-    const handelRegister = event => {
+    const handelRegister = async (event) => {
         event.preventDefault();
         const name = event.target.name.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
-        createUserWithEmailAndPassword(email, password);
+        await createUserWithEmailAndPassword(email, password);
+        await updateProfile({ displayName: name });
+        navigate('/home'); 
     }
     return (
         <div>
@@ -56,13 +56,7 @@ const Register = () => {
                             <input className='px-3 py-2 mt-4 border border-black rounded-lg hover:bg-gray-500 hover:text-white w-32' type="submit" value="Register" />
                         </form>
                         <p className='mt-4'><small>Already Register ? <span className='text-red-500 text-center cursor-pointer' onClick={navigateLogin}>Please Login</span></small></p>
-                        <div className='flex justify-center items-center p-1'>
-                            <div className='h-0.5 w-1/2 bg-black  m-2'></div>
-                            <p>or</p>
-                            <div className='h-0.5 w-1/2 bg-black m-2'></div>
-                        </div>
-                        <button className='border border-b-yellow-500 text-center w-full h-11 rounded-lg bg-green-200 hover:bg-green-500 hover:text-white mt-3'>Sign in google</button>
-                        <button className='border border-b-green-500 text-center w-full h-11 rounded-lg bg-green-50 hover:bg-green-500 hover:text-white mt-3 mb-6'>Sign in email and password</button>
+                        <SocialLogin></SocialLogin>
                     </div>
                 </div>
             </div>
