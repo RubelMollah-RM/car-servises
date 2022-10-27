@@ -4,6 +4,8 @@ import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-
 import { useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import SocialLogin from './SocialLogin/SocialLogin';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     const emailRef = useRef('');
@@ -20,13 +22,20 @@ const Login = () => {
     ] = useSignInWithEmailAndPassword(auth);
     const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
 
-    const resetEmailpassword = async () =>{
+    const resetEmailpassword = async () => {
         const email = emailRef.current.value;
-        await sendPasswordResetEmail(email);
+        if (email) {
+            await sendPasswordResetEmail(email);
+            toast('Email verification send');
+        }
+        else {
+            toast('Enter your email');
+        }
 
+        
     }
     if (sending) {
-        return <p>sending......</p>;
+        return <p className='text-center text-2xl'>sending......</p>;
     }
     if (error) {
         errorElement = <p className='text-center text-red-500'><small>Error : {error?.message} </small></p>
@@ -72,6 +81,7 @@ const Login = () => {
                     <p><small>Forget password ? <span className='text-red-500 cursor-pointer hover:text-green-500' onClick={resetEmailpassword}>Reset password</span></small></p>
                     {errorElement}
                     <SocialLogin></SocialLogin>
+                    <ToastContainer />
                 </div>
             </div>
 
