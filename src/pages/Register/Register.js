@@ -1,21 +1,50 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init'
 const Register = () => {
+    const [
+        createUserWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useCreateUserWithEmailAndPassword(auth);
     const navigate = useNavigate();
 
-    const navigateLogin = () =>{
+    const navigateLogin = () => {
         navigate('/login');
     }
-    
-    const handelRegister = event =>{
+
+    if (loading) {
+        return <div className='h-screen flex justify-center align-middle '>
+            <div className='h-full animate-spin flex justify-center items-center mt-8'>
+                <svg className='h-11 w-11' viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><rect fill="none" height="256" width="256" /><line fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" x1="128" x2="128" y1="32" y2="64" /><line fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" x1="195.9" x2="173.3" y1="60.1" y2="82.7" /><line fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" x1="224" x2="192" y1="128" y2="128" /><line fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" x1="195.9" x2="173.3" y1="195.9" y2="173.3" /><line fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" x1="128" x2="128" y1="224" y2="192" /><line fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" x1="60.1" x2="82.7" y1="195.9" y2="173.3" /><line fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" x1="32" x2="64" y1="128" y2="128" /><line fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" x1="60.1" x2="82.7" y1="60.1" y2="82.7" /></svg>
+            </div>
+        </div>
+    }
+
+    if (error) {
+        return <div>
+            <p className='text-center text-red-500'>Error : {error.message}</p>
+        </div>
+    }
+
+    if (user) {
+        navigate('/home');
+    }
+
+    const handelRegister = event => {
         event.preventDefault();
+        const name = event.target.name.value;
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+        createUserWithEmailAndPassword(email, password);
     }
     return (
         <div>
             <h1 className='text-green-600 text-center text-2xl'>Register here</h1>
             <div className='flex justify-center align-middle'>
-                <div className='border border-t-green-500 border-r-red-500 border-l-yellow-600 border-b-blue-600 mt-5 rounded-md h-96 w-96 flex justify-center '>
+                <div className='border border-t-green-500 border-r-red-500 border-l-yellow-600 border-b-blue-600 mt-5 rounded-md w-96 flex justify-center '>
                     <div>
                         <form onSubmit={handelRegister} className='flex flex-col'>
                             <label htmlFor="name" className='mt-4'>Name :</label>
@@ -27,6 +56,13 @@ const Register = () => {
                             <input className='px-3 py-2 mt-4 border border-black rounded-lg hover:bg-gray-500 hover:text-white w-32' type="submit" value="Register" />
                         </form>
                         <p className='mt-4'><small>Already Register ? <span className='text-red-500 text-center cursor-pointer' onClick={navigateLogin}>Please Login</span></small></p>
+                        <div className='flex justify-center items-center p-1'>
+                            <div className='h-0.5 w-1/2 bg-black  m-2'></div>
+                            <p>or</p>
+                            <div className='h-0.5 w-1/2 bg-black m-2'></div>
+                        </div>
+                        <button className='border border-b-yellow-500 text-center w-full h-11 rounded-lg bg-green-200 hover:bg-green-500 hover:text-white mt-3'>Sign in google</button>
+                        <button className='border border-b-green-500 text-center w-full h-11 rounded-lg bg-green-50 hover:bg-green-500 hover:text-white mt-3 mb-6'>Sign in email and password</button>
                     </div>
                 </div>
             </div>
