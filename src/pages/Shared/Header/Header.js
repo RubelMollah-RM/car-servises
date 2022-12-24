@@ -24,6 +24,12 @@ const Header = () => {
                     <Link className='mr-4 hover:underline underline-offset-8 hover:text-indigo-700' to={'/service'}>Service</Link>
                     <Link className='mr-4 hover:underline underline-offset-8 hover:text-indigo-700' to={'/expert'}>Expert</Link>
                     <Link className='mr-4 hover:underline underline-offset-8 hover:text-indigo-700' to={'/register'}>Register</Link>
+                    {
+                        user && <>
+                           <Link className='mr-4 hover:underline underline-offset-8 hover:text-indigo-700' to={'/addService'}>Add Service</Link> 
+                           <Link className='mr-4 hover:underline underline-offset-8 hover:text-indigo-700' to={'/updatedService'}>Updated Service</Link> 
+                        </>
+                    }
                     {user ? <button onClick={logout} className='mr-4 hover:underline underline-offset-8 hover:text-indigo-700 text-green-500'>sign out</button>
                         :
                         <Link className='mr-4 hover:underline underline-offset-8 hover:text-indigo-700' to={'/login'}>Login</Link>

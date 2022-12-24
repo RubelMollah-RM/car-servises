@@ -35,7 +35,7 @@ const SocialLogin = () => {
             </div>
             {errorElement}
             <button onClick={() => signInWithGoogle()} className='border border-b-yellow-500 text-center w-full h-11 rounded-lg bg-green-200 hover:bg-green-500 hover:text-white mt-3'>Sign in google</button>
-            <button onClick={() => signInWithGithub()} className='border border-b-green-500 text-center w-full h-11 rounded-lg bg-green-50 hover:bg-green-500 hover:text-white mt-3 mb-6'>Sign in email Github</button>
+            <button onClick={() => signInWithGithub()} className='border border-b-green-500 text-center w-full h-11 rounded-lg bg-green-50 hover:bg-green-500 hover:text-white mt-3 mb-6'>Sign in Github</button>
         </div>
     );
 };

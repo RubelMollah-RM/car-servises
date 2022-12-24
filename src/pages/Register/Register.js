@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init'
 import SocialLogin from '../Login/SocialLogin/SocialLogin';
+import TitlePage from '../TitlePage/TitlePage';
 const Register = () => {
     const [
         createUserWithEmailAndPassword,
@@ -42,6 +43,7 @@ const Register = () => {
     }
     return (
         <div>
+            <TitlePage title='Register'></TitlePage>
             <h1 className='text-green-600 text-center text-2xl'>Register here</h1>
             <div className='flex justify-center align-middle'>
                 <div className='border border-t-green-500 border-r-red-500 border-l-yellow-600 border-b-blue-600 mt-5 rounded-md w-96 flex justify-center '>

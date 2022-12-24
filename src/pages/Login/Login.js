@@ -6,6 +6,7 @@ import auth from '../../firebase.init';
 import SocialLogin from './SocialLogin/SocialLogin';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import TitlePage from '../TitlePage/TitlePage';
 
 const Login = () => {
     const emailRef = useRef('');
@@ -66,6 +67,7 @@ const Login = () => {
 
     return (
         <div>
+            <TitlePage title='Login'></TitlePage>
             <h1 className='text-2xl text-center mt-6 mb-3'>Please login</h1>
 
             <div className='border border-t-red-500 border-l-green-500 border-b-yellow-500 border-r-blue-500 h-full w-96 rounded-md flex  justify-center align-middle mx-auto'>
